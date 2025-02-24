@@ -7,7 +7,7 @@ import { toast } from "sonner"
 export const login = createAsyncThunk("/login",async(loginData,{rejectWithValue})=>{
     try {
         
-    const data =  await axios.post("http://localhost:7000/api/login",loginData)
+    const data =  await axios.post("https://yogaproject-zuhz.onrender.com/api/login",loginData)
     console.log(data)
         return data
     } catch (error) {
