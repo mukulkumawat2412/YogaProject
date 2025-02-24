@@ -132,7 +132,7 @@ function UpdateForm() {
 
 
   useEffect(() => {
-    axios.get(`http://localhost:7000/api/yogUpdateData/${id}`).then((data) => {
+    axios.get(`https://yogaproject-zuhz.onrender.com/${id}`).then((data) => {
       if (data.status === 200) {
         setYName(data.data.myIdData.name);
         setYDesc(data.data.myIdData.YogaDescription);
@@ -157,7 +157,7 @@ function UpdateForm() {
     Data.append("yimage", yimage);
     
 
-    axios.put(`http://localhost:7000/api/yogUpdate/${id}`, Data, {
+    axios.put(`https://yogaproject-zuhz.onrender.com/api/yogUpdate/${id}`, Data, {
         headers: {
           "Content-Type": "multipart/form-data",
         },

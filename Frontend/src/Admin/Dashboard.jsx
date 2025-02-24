@@ -28,7 +28,7 @@ function Dashboard() {
 
     function handleDelete(id){
         
-        axios.delete(`http://localhost:7000/api/deleteyogData/${id}`).then((data)=>{
+        axios.delete(`https://yogaproject-zuhz.onrender.com/api/deleteyogData/${id}`).then((data)=>{
             console.log(data)
             if(data.status===200){
                 nevigate("/dashboard")
@@ -79,7 +79,7 @@ function Dashboard() {
                                     <tbody>
                                     
                                         <tr className="border-2 ">
-                                            <td><img src={`http://localhost:7000/${item.image}`} alt="img" id="myimg" /></td>
+                                            <td><img src={`https://yogaproject-zuhz.onrender.com/${item.image}`} alt="img" id="myimg" /></td>
                                             <td>{item.name}</td>
 
                                             <td>{item.title}</td>

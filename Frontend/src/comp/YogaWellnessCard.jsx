@@ -48,7 +48,7 @@ const YogaWellnessCard = ({ Yog }) => {
 
 
         <MDBCard id="userProductImage">
-          <MDBCardImage src={`http://localhost:7000/${Yog.image}`} position='top' alt='...' className='w-full h-full '
+          <MDBCardImage src={`https://yogaproject-zuhz.onrender.com/${Yog.image}`} position='top' alt='...' className='w-full h-full '
 
           />
           <MDBCard>
