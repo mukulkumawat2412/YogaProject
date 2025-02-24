@@ -1,71 +1,89 @@
 import { Box, TextField } from "@mui/material";
+
+
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { createYoga } from "../redux/slices/YogaSlice";
+import {createYoga} from "../redux/slices/YogaSlice"
 import { useNavigate } from "react-router-dom";
 
+
+
+
 function Therepyform() {
-    const { handleSubmit, register } = useForm();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
 
-    const onSubmit = async (data) => {
-        console.log(data);
-        navigate("/dashboard");
+    
 
-        const formData = new FormData();
-        formData.append("name", data.name);
-        formData.append("title", data.title);
-        formData.append("YogaDescription", data.YogaDescription);
-        formData.append("image", data.image[0]);
+    const { handleSubmit, register } = useForm()
 
-        dispatch(createYoga(formData));
-    };
+    const dispatch = useDispatch()
+    const nevigate = useNavigate()
+
+    const onSubmit = async(data) => {
+        console.log(data)
+        nevigate("/dashboard")
+        
+        const formData = new FormData()
+       
+        formData.append("name",data.name)
+        formData.append("title",data.title)
+        formData.append("YogaDescription",data.YogaDescription)
+        formData.append("image",data.image[0])
+
+        
+     dispatch(createYoga(formData))
+     
+
+
+
+
+
+
+    }
+
+
+
+
+
+
 
     return (
-        <div className="flex flex-col items-center justify-center w-full min-h-screen bg-gray-100 px-4 py-8">
-            <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg">
-                <h1 className="mb-6 text-2xl font-bold text-center text-purple-600">Add Yoga Therapy</h1>
-                <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-                    <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                        <TextField
-                            {...register("name")}
-                            label="Naturopathy & Neurotherapy Name"
-                            variant="outlined"
-                            className="w-full"
-                        />
+        <>
+            <div className='flex flex-col justify-center w-full mt-4'>
+                <div className='w-full mt-4 '>
+                    <h1 className='text-3xl font-bold text-center text-purple-400'>Add Yoga Therepy</h1>
+                    <form onSubmit={handleSubmit(onSubmit)}>
+                        <Box
+                            sx={{ '& > :not(style)': {}, display: 'flex', alignItems: "center", flexDirection: "column", mt: "12px" }}
+                            noValidate
+                            autoComplete="off"
+                        >
 
-                        <TextField
-                            {...register("title")}
-                            label="Naturopathy & Neurotherapy Title"
-                            variant="outlined"
-                            className="w-full"
-                        />
+                            <TextField className='w-11/12 ' {...register("name")}
+                                id="outlined-basic" label="Naturopathy & Neurotherapy Name" variant="outlined" sx={{ mb: "7px" }} />
 
-                        <TextField
-                            {...register("YogaDescription")}
-                            label="Naturopathy & Neurotherapy Description"
-                            variant="outlined"
-                            multiline
-                            rows={3}
-                            className="w-full"
-                        />
+                            <TextField className='w-11/12 ' {...register("title")}
+                                id="outlined-basic" label=" Naturopathy & Neurotherapy title" variant="outlined" sx={{ mb: "7px" }} />
 
-                        <label className="text-gray-600 font-medium">Upload Image</label>
-                        <input
-                            className="w-full p-2 border border-gray-300 rounded-lg"
-                            type="file"
-                            {...register('image')}
-                        />
+                            <TextField className='w-11/12 '{...register("YogaDescription")}
+                                id="outlined-basic" label=" Naturopathy & Neurotherapy description" variant="outlined" sx={{ mb: "7px" }} />
 
-                        <button type="submit" className="w-full p-3 text-white bg-orange-500 rounded-lg hover:bg-orange-600">
-                            Add Therapy
-                        </button>
-                    </Box>
-                </form>
+                          
+                            
+                            <label>Image</label>    
+                            <input className="input_field" type="file"{...register('image')} placeholder="Enter price"/>
+                        
+                            <button type="submit" className="p-2 mt-3 text-white bg-orange-500 rounded-lg">Add Therepy</button>
+
+                        </Box>
+                    </form>
+                </div>
             </div>
-        </div>
+        </>
     );
 }
 
 export default Therepyform;
+
+
+
+

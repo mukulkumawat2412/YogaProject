@@ -1,3 +1,6 @@
+
+
+
 import { Box, TextField } from "@mui/material";
 import { useState, useEffect } from "react";
 import axios from "axios";
@@ -8,90 +11,110 @@ function UpdateForm() {
   const [yname, setYName] = useState("");
   const [ydesc, setYDesc] = useState("");
   const [ytitle, setYTitle] = useState("");
-  const [yimage, setYImage] = useState(null);
+  const [yimage, setYImage] = useState("");
 
   const { id } = useParams();
-  const navigate = useNavigate();
+  const nevigate = useNavigate()
+
 
   useEffect(() => {
-    axios.get(`https://yogaproject-zuhz.onrender.com/api/${id}`).then((data) => {
+    axios.get(`https://yogaproject-zuhz.onrender.com/${id}`).then((data) => {
       if (data.status === 200) {
         setYName(data.data.myIdData.name);
         setYDesc(data.data.myIdData.YogaDescription);
         setYTitle(data.data.myIdData.title);
+        setYImage(data.data.myIdData.image);
       }
     });
   }, [id]);
 
-  function handleForm(e) {
-    e.preventDefault();
-    
-    let formData = new FormData();
-    formData.append("yname", yname);
-    formData.append("ydesc", ydesc);
-    formData.append("ytitle", ytitle);
-    if (yimage) formData.append("yimage", yimage);
+  
 
-    axios
-      .put(`https://yogaproject-zuhz.onrender.com/api/yogUpdate/${id}`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
+
+  function handleform(e) {
+    
+    e.preventDefault();
+
+    let Data = new FormData();
+    
+    Data.append("yname", yname);
+    Data.append("ydesc", ydesc);
+    Data.append("ytitle", ytitle);  
+    Data.append("yimage", yimage);
+    
+
+    axios.put(`https://yogaproject-zuhz.onrender.com/api/yogUpdate/${id}`, Data, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       })
       .then((response) => {
-        if (response.status === 200) {
-          toast.success("Therapy Successfully Updated!");
-          navigate("/dashboard");
+        console.log("Data updated successfully:", response.data);
+        if(response.status===200){
+          toast.success("Therepy Successfully Updated")
+            nevigate("/dashboard")
         }
       })
       .catch((error) => {
         console.error("Error updating data:", error);
-        toast.error("Update failed, try again.");
       });
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 px-4">
-      <div className="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg">
-        <h1 className="mb-6 text-2xl font-bold text-center text-purple-600">
+    <div className="flex flex-col justify-center w-full mt-4">
+      <div className="w-full mt-4">
+        <h1 className="text-3xl font-bold text-center text-purple-400">
           Update Yoga Therapy
         </h1>
-        <form onSubmit={handleForm} className="space-y-4">
-          <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <form onSubmit={(e) => handleform(e)} >
+          <Box
+            sx={{
+              "& > :not(style)": {},
+              display: "flex",
+              alignItems: "center",
+              flexDirection: "column",
+              mt: "12px",
+            }}
+            noValidate
+            autoComplete="off"
+          >
             <TextField
-              className="w-full"
+              className="w-11/12"
               value={yname}
               onChange={(e) => setYName(e.target.value)}
+              id="outlined-basic"
               label="Naturopathy & Neurotherapy Name"
               variant="outlined"
+              sx={{ mb: "7px" }}
             />
-
             <TextField
-              className="w-full"
+              className="w-11/12"
               value={ytitle}
+              
               onChange={(e) => setYTitle(e.target.value)}
+              id="outlined-basic"
               label="Naturopathy & Neurotherapy Title"
               variant="outlined"
+              sx={{ mb: "7px" }}
             />
-
             <TextField
-              className="w-full"
+              className="w-11/12"
               value={ydesc}
               onChange={(e) => setYDesc(e.target.value)}
+              id="outlined-basic"
               label="Naturopathy & Neurotherapy Description"
               variant="outlined"
-              multiline
-              rows={3}
+              sx={{ mb: "7px" }}
             />
-
-            <label className="text-gray-600 font-medium">Upload Image</label>
+            <label>Image</label>
             <input
-              type="file"
-              className="w-full p-2 border border-gray-300 rounded-lg"
-              onChange={(e) => setYImage(e.target.files[0])}
+              className="input_field"
+              type="file" name="file"
+              onChange={(e)=>setYImage(e.target.files[0])}
             />
-
             <button
               type="submit"
-              className="w-full p-3 text-white bg-green-500 rounded-lg hover:bg-green-600 transition duration-200"
+              className="p-2 mt-3 text-white bg-green-500 rounded-lg"
             >
               Update Therapy
             </button>
@@ -103,3 +126,8 @@ function UpdateForm() {
 }
 
 export default UpdateForm;
+
+
+
+
+

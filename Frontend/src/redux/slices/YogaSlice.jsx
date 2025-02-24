@@ -1,96 +1,77 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from 'axios';
-import {getToken} from "../../lib/utils.js"
+import axios from "axios";
 import { toast } from "sonner";
 
 const initialState = {
   loading: false,
   error: null,
   Yoga: [],
-
-
 };
 
-export const getYoga = createAsyncThunk('/Yoga', async (_,{ rejectWithValue }) => {
+// ✅ Get Yoga API (Fetch Data)
+export const getYoga = createAsyncThunk("/Yoga", async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get('https://yogaproject-zuhz.onrender.com/api/Yoga',{
-    
-    });
-
+    const response = await axios.get("https://yogaproject-zuhz.onrender.com/api/Yoga");
     return response.data;
-
   } catch (error) {
-    
-    return rejectWithValue(error);
+    return rejectWithValue(error.response?.data || "Something went wrong");
   }
-}
-);
+});
 
-
-
-
-export const createYoga = createAsyncThunk('/get/createYoga', async (jobPayload, { rejectWithValue }) => {
-  
+// ✅ Create Yoga API (Save Data to Database)
+export const createYoga = createAsyncThunk("/get/createYoga", async (formData, { rejectWithValue }) => {
   try {
-    const response = await axios.post('https://yogaproject-zuhz.onrender.com/api/createYoga', jobPayload,
-      
+    const response = await axios.post(
+      "https://yogaproject-zuhz.onrender.com/api/createYoga",
+      formData,
+      { headers: { "Content-Type": "multipart/form-data" } } // ✅ Correct Headers for File Upload
     );
+
     return response.data;
-    
-
   } catch (error) {
-
-    return rejectWithValue(error);
+    return rejectWithValue(error.response?.data || "Something went wrong");
   }
-}
-);
-
-
-
+});
 
 const YogaSlice = createSlice({
-  name: 'yog',
+  name: "yog",
   initialState,
-  reducers: {
-
-  },
-
+  reducers: {},
   extraReducers: (builder) => {
     builder
-      .addCase(getYoga.pending, (state, action) => {
+      // ✅ Fetch Yoga Data Cases
+      .addCase(getYoga.pending, (state) => {
         state.loading = true;
-
       })
       .addCase(getYoga.fulfilled, (state, action) => {
-        console.log(action.payload);
-        (state.loading = false),
-          (state.Yoga = action.payload.data.Yoga);
-      
+        state.loading = false;
+        state.Yoga = action.payload?.data?.Yoga || [];
       })
       .addCase(getYoga.rejected, (state, action) => {
-        console.log(action.payload.message);
-        (state.loading = false), (state.error = action.payload.message);
-
-      }).addCase(createYoga.pending, (state, action) => {
-        state.loading = true;
-        const loadingId = toast.loading('Create Naturopathy....');
-        state.toastId = loadingId;
-
-      }).addCase(createYoga.fulfilled, (state, action) => {
-        (state.loading = false), toast.dismiss(state.toastId);
-        toast.success(action.payload.message);
-
-      }).addMatcher((action)=>action.type.endsWith('/rejected'),(state,action)=>{
-        state.loading = false,
-        toast.dismiss(state.toastId)
-        toast.error(action.payload?.data?.message)
-        state.error = action.payload?.data?.message
+        state.loading = false;
+        state.error = action.payload?.message || "Failed to fetch data";
       })
+
+      // ✅ Create Yoga Cases
+      .addCase(createYoga.pending, (state) => {
+        state.loading = true;
+        state.toastId = toast.loading("Creating Naturopathy...");
+      })
+      .addCase(createYoga.fulfilled, (state, action) => {
+        state.loading = false;
+        toast.dismiss(state.toastId);
+        toast.success("Therapy Successfully Created!");
+
+        // ✅ Update State After Creating a New Yoga Therapy
+        state.Yoga.push(action.payload?.data || {});
+      })
+      .addCase(createYoga.rejected, (state, action) => {
+        state.loading = false;
+        toast.dismiss(state.toastId);
+        toast.error(action.payload?.message || "Failed to create therapy");
+        state.error = action.payload?.message || "Error occurred";
+      });
   },
+});
 
-
-})
-
-console.log(YogaSlice)
-
-export default YogaSlice.reducer
+export default YogaSlice.reducer;
