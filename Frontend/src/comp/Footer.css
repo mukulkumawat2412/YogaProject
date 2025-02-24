@@ -1,0 +1,95 @@
+
+.footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 40px 20px;
+  }
+  
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .logo {
+    position: relative;
+    width: 120px;
+    height: 120px;
+    background-color: #fbb03b;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .crescent {
+    position: absolute;
+    width: 90px;
+    height: 90px;
+    background-color: #014d26;
+    border-radius: 50%;
+    left: 20px;
+  }
+  
+  .sunflower {
+    width: 70px;
+    height: 70px;
+    background-image: url('/path-to-your-sunflower-image.png');
+    background-size: cover;
+    position: relative;
+  }
+  
+  .brand {
+    margin-top: 10px;
+    font-family: 'Cursive', sans-serif;
+    font-size: 24px;
+  }
+  
+  .brand span {
+    font-weight: bold;
+    color: #fbb03b;
+  }
+  
+  .contact-info {
+    margin-bottom: 20px;
+    font-size: 16px;
+  }
+  
+  .contact-button {
+    background-color: transparent;
+    color: #fbb03b;
+    border: 2px solid #fbb03b;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .contact-button:hover {
+    background-color: #fbb03b;
+    color: #014d26;
+  }
+  
+  .social-icons {
+    margin-top: 20px;
+  }
+  
+  .social-icons a {
+    margin: 0 10px;
+    color: white;
+    font-size: 20px;
+    text-decoration: none;
+  }
+  
+  .social-icons a:hover {
+    color: #fbb03b;
+  }
+  
+  
+  
+  
+  
+  

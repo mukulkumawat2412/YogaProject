@@ -1,0 +1,20 @@
+
+
+body{
+  background-color: rgb(253, 253, 253);
+}
+
+
+
+.yoga-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;  /* Adjust the gap between cards as needed */
+  justify-content: space-between;
+}
+
+.yoga-card .YogaWellnessCard {
+  flex: 1 1 30%;  /* Each card will take up 30% of the container width */
+  max-width: 30%;  /* Ensure no card exceeds 30% width */
+  box-sizing: border-box;
+}
