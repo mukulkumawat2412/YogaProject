@@ -13,7 +13,7 @@ const initialState = {
 
 export const getTherepy = createAsyncThunk('/Therepy', async (_,{ rejectWithValue }) => {
   try {
-    const response = await axios.get('http://localhost:7000/api/Therepy',{
+    const response = await axios.get('https://yogaproject-zuhz.onrender.com/api/Therepy',{
     
     });
 
@@ -32,7 +32,7 @@ export const getTherepy = createAsyncThunk('/Therepy', async (_,{ rejectWithValu
 export const ApplyTherepy = createAsyncThunk('/get/createTherepy', async (jobPayload, { rejectWithValue }) => {
   
   try {
-    const response = await axios.post('http://localhost:7000/api/createTherepy', jobPayload,
+    const response = await axios.post('https://yogaproject-zuhz.onrender.com/api/createTherepy', jobPayload,
       
     );
     return response.data;

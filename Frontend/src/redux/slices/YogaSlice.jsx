@@ -13,7 +13,7 @@ const initialState = {
 
 export const getYoga = createAsyncThunk('/Yoga', async (_,{ rejectWithValue }) => {
   try {
-    const response = await axios.get('http://localhost:7000/api/Yoga',{
+    const response = await axios.get('https://yogaproject-zuhz.onrender.com/api/Yoga',{
     
     });
 
@@ -32,7 +32,7 @@ export const getYoga = createAsyncThunk('/Yoga', async (_,{ rejectWithValue }) =
 export const createYoga = createAsyncThunk('/get/createYoga', async (jobPayload, { rejectWithValue }) => {
   
   try {
-    const response = await axios.post('http://localhost:7000/api/createYoga', jobPayload,
+    const response = await axios.post('https://yogaproject-zuhz.onrender.com/api/createYoga', jobPayload,
       
     );
     return response.data;

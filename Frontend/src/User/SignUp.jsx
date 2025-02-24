@@ -36,7 +36,7 @@ const SignUp = () => {
 const onSubmit = (data)=>{
 
 
-  axios.post('http://localhost:7000/api/register',data).then((data)=>{
+  axios.post('https://yogaproject-zuhz.onrender.com/register',data).then((data)=>{
     console.log(data)
     if(data.status===201){
       toast.success("User Register Successfully")
