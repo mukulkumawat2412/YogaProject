@@ -36,6 +36,7 @@ export const createYoga = createAsyncThunk('/get/createYoga', async (jobPayload,
       
     );
     return response.data;
+    
 
   } catch (error) {
 

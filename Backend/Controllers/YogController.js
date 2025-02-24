@@ -5,6 +5,7 @@ import { sendSuccess } from "../utils/response.js";
 const createYoga = async (req, res) => {
   try {
     const { name, title, YogaDescription } = req.body
+    console.log(req.body)
 
     const image = req.file.filename
 
